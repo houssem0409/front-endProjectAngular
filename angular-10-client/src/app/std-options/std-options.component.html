@@ -1,0 +1,18 @@
+<form [formGroup]="StudentGroup"  (ngSubmit)="done()" class="from-control">
+  <div formGroupName="student">
+    <div class="mb-3">
+      <label  class="form-label">Email</label>
+      <input value="{{myStudent.email}}" formControlName="email" type="text" class="form-control"  aria-describedby="emailHelp">
+
+    </div>
+    <div class="mb-3">
+      <label  class="form-label">Password</label>
+      <input value="{{myStudent.password}}" formControlName="password" type="password" class="form-control" >
+    </div>
+    <div class="mb-3">
+      <label  class="form-label">Username</label>
+      <input value="{{myStudent.username}}" formControlName="username" type="text" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp">
+    </div>
+  <button type="submit" class="btn btn-primary" >Done</button>
+  </div>
+ </form>
