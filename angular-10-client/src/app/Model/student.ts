@@ -1,9 +1,9 @@
 import {User} from './user';
-import {Role} from './role';
+import {Roles} from './roles';
 
 export class Student extends User{
 
-  constructor(id: number, email: string, password: string, username: string, role: Role) {
-    super(id, email, password, username, role);
+  constructor(id: number, email: string, password: string, username: string, roles: Array<Roles>) {
+    super(id, email, password, username, roles);
   }
 }

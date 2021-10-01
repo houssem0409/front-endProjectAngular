@@ -4,8 +4,8 @@
   <tr>
     <th scope="col">#ID</th>
     <th scope="col">email</th>
-    <th scope="col">Password</th>
     <th scope="col">UserName</th>
+    <th scope="col">Role</th>
     <th scope="col">Options</th>
   </tr>
   </thead>
@@ -13,8 +13,8 @@
   <tr *ngFor="let stus of students">
     <th scope="row">{{stus.id}}</th>
     <td>{{stus.email}}</td>
-    <td>{{stus.password}}</td>
     <td>{{stus.username}}</td>
+    <td *ngFor="let roles of stus.roles">{{roles.name}}</td>
 
 
     <td>

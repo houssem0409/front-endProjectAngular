@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import {Student} from '../Model/student';
 import {StudentService} from '../_services/student.service';
-import {TokenStorageService} from "../_services/token-storage.service";
+import {TokenStorageService} from '../_services/token-storage.service';
 
 @Component({
   selector: 'app-student',
@@ -29,6 +29,7 @@ export class StudentComponent implements OnInit {
   }
   // tslint:disable-next-line:typedef
   getStudents(){
+
     this.studentService.getStudents().subscribe(
       data => this.students = data
     );

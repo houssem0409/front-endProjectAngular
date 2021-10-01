@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../Model/user';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {UserService} from '../_services/user.service';
 import {StudentService} from '../_services/student.service';
 import {Student} from '../Model/student';
-import {isPresentationRole} from 'codelyzer/util/isPresentationRole';
+import {Roles} from '../Model/roles';
 
 @Component({
   selector: 'app-std-options',
@@ -14,13 +13,14 @@ import {isPresentationRole} from 'codelyzer/util/isPresentationRole';
 })
 export class StdOptionsComponent implements OnInit {
 
-  // @ts-ignore
+  studentRoles: Array<Roles>;
   studentService: StudentService;
   StudentGroup: FormGroup;
   // @ts-ignore
   id: number;
   // @ts-ignore
-  myStudent: Student = new Student(0, '', '', '', '');
+  myRole: Roles = new Roles(0, '');
+  myStudent: Student = new Student(0, '', '', '', [this.myRole]);
   constructor(private fromBuilder: FormBuilder,
               private userService: UserService,
               private router: Router,
@@ -28,7 +28,9 @@ export class StdOptionsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
     // @ts-ignore
+    console.log('le role est ' + this.getRoles());
     this.id = +this.route.snapshot.paramMap.get('id');
     alert(this.id);
     // tslint:disable-next-line:triple-equals
@@ -48,7 +50,8 @@ export class StdOptionsComponent implements OnInit {
           {
             email : [this.myStudent.email],
             password: [this.myStudent.password],
-            username : [this.myStudent.username]
+            username : [this.myStudent.username],
+
 
 
 
@@ -72,24 +75,26 @@ export class StdOptionsComponent implements OnInit {
     return this.StudentGroup.get('student')?.value.username;
 
   }
-
   // tslint:disable-next-line:typedef
-  getRole(){
-    return this.StudentGroup.get('student')?.value.role;
+  getRoles(){
+    // tslint:disable-next-line:label-position
+    this.myRole.id = 4;
+    this.myRole.name = 'ROLE_STUDENT';
+    return this.studentRoles.push(this.myRole);
   }
+  /*const myStudentRoles = this.myStudent.roles.push(this.getRoles());*/
 
-
-  // tslint:disable-next-line:typedef
-  done() {
+// tslint:disable-next-line:typedef
+done() {
 
     // @ts-ignore
     // tslint:disable-next-line:max-line-length
-    const stu = new Student(this.id, this.getEmail(), this.getPassword(), this.getUsername(), this.getRole());
+    const stu = new Student(this.id, this.getEmail(), this.getPassword(), this.getUsername(), this.getRoles());
     // tslint:disable-next-line:triple-equals
     if (this.id == 0){
       this.studentService.addStudent(stu).subscribe(
         response => {
-          this.router.navigateByUrl('/studentManagment');
+          this.router.navigateByUrl('/home');
         }
       );
     }else {
